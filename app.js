@@ -50,4 +50,28 @@ if (amigos.length % 2 !== 0) {
 // Creamos una copia del array para sortear
 const nombresRestantes = [...amigos];
 const sorteados = {};
+    // Asignamos un amigo secreto a cada participante
+    amigos.forEach((amigo) => {
+        let indice;
+        let asignado;
+
+        // Evitamos que un amigo se asigne a sí mismo
+        do {
+            indice = Math.floor(Math.random() * nombresRestantes.length);
+            asignado = nombresRestantes[indice];
+        } while (asignado === amigo);
+
+        // Guardar la asignación y eliminar el nombre que ya salió sorteado
+        sorteados[amigo] = asignado;
+        nombresRestantes.splice(indice, 1);
+    });
+
+    // Mostramos los resultados
+    for (const [amigo, secreto] of Object.entries(sorteados)) {
+        const resultadoItem = document.createElement("li");
+        resultadoItem.textContent = `El amigo secreto de ${amigo} es:  ${secreto}`;
+        resultado.appendChild(resultadoItem);
+    }
 }
+
+
